@@ -58,7 +58,16 @@ void imu_callback(const sensor_msgs::Imu::ConstPtr& imu_msg) {
     imustream << std::setprecision(4) << imu_msg->orientation.x << ",";
     imustream << std::setprecision(4) << imu_msg->orientation.y << ",";
     imustream << std::setprecision(4) << imu_msg->orientation.z << ",";
-    imustream << std::setprecision(4) << imu_msg->orientation.w << "\n";
+    imustream << std::setprecision(4) << imu_msg->orientation.w << ",";
+
+    imustream << std::setprecision(4) << imu_msg->angular_velocity.x << ",";
+    imustream << std::setprecision(4) << imu_msg->angular_velocity.y << ",";
+    imustream << std::setprecision(4) << imu_msg->angular_velocity.z << ",";
+
+    imustream << std::setprecision(4) << imu_msg->linear_acceleration.x << ",";
+    imustream << std::setprecision(4) << imu_msg->linear_acceleration.y << ",";
+    imustream << std::setprecision(4) << imu_msg->linear_acceleration.z << "\n";
+
     imucount++;
 }
 
@@ -77,8 +86,8 @@ int main(int argc, char** argv) {
 
     ros::init(argc, argv, "adi_sub");
     ros::NodeHandle nh;
-    // ros::Subscriber imu_sub = nh.subscribe<sensor_msgs::Imu>("imu", 1000, imu_callback);  // Razor IMU
-    ros::Subscriber imu_sub = nh.subscribe<sensor_msgs::Imu>("imu/data", 1000, imu_callback);     // Adis IMU
+    ros::Subscriber imu_sub = nh.subscribe<sensor_msgs::Imu>("imu/data", 1000, imu_callback);  // Adis IMU
+    // ros::Subscriber imu_sub = nh.subscribe<sensor_msgs::Imu>("imu/data_raw", 1000, imu_callback);     // Adis IMU
     ros::spin();
 
     return 0;
